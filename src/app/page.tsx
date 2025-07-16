@@ -1,3 +1,4 @@
+
 'use client';
 
 import Image from 'next/image';
@@ -69,6 +70,7 @@ const query = groq`
         trialPrice,
         regularPrice,
         benefits,
+        purchaseUrl, // 新しく追加したフィールド
       },
     },
     contactSection {
@@ -144,17 +146,7 @@ export default function PeechanzGiftPage() {
         <p className="text-lg text-gray-700">{data.productOverviewSection.quantityInfo}</p>
         <p className="text-2xl font-bold text-red-700 mb-4">{data.productOverviewSection.limitedQuantityText}</p>
         <p className="text-lg text-gray-700 mb-2">{data.productOverviewSection.limitedQuantityReason}</p>
-        <div className="text-center mt-8">
-          <a
-            href="https://buy.stripe.com/7sI8yo1Dp4on4us00Q"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-yellow-500 text-white text-xl font-bold py-4 px-8 rounded-full hover:bg-yellow-600 transition-colors duration-300 shadow-lg"
-          >
-            今すぐ購入する
-          </a>
-          <p className="text-sm text-gray-600 mt-2">プロモーションコード: <span className="font-bold text-green-700">{data.productOverviewSection.promoCode}</span></p>
-        </div>
+        {/* LP全体の購入ボタンは削除 */}
       </section>
 
       {/* 開発秘話 */}
@@ -176,17 +168,7 @@ export default function PeechanzGiftPage() {
             />
           </div>
         )}
-        <div className="text-center mt-8">
-          <a
-            href="https://buy.stripe.com/7sI8yo1Dp4on4us00Q"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-yellow-500 text-white text-xl font-bold py-4 px-8 rounded-full hover:bg-yellow-600 transition-colors duration-300 shadow-lg"
-          >
-            今すぐ購入する
-          </a>
-          <p className="text-sm text-gray-600 mt-2">プロモーションコード: <span className="font-bold text-green-700">{data.productOverviewSection.promoCode}</span></p>
-        </div>
+        {/* LP全体の購入ボタンは削除 */}
       </section>
 
       {/* 材料へのこだわり */}
@@ -235,17 +217,7 @@ export default function PeechanzGiftPage() {
         <p className="text-sm text-gray-500 mt-2 text-center">
           {data.ingredientsSection.noteText}
         </p>
-        <div className="text-center mt-8">
-          <a
-            href="https://buy.stripe.com/7sI8yo1Dp4on4us00Q"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-yellow-500 text-white text-xl font-bold py-4 px-8 rounded-full hover:bg-yellow-600 transition-colors duration-300 shadow-lg"
-          >
-            今すぐ購入する
-          </a>
-          <p className="text-sm text-gray-600 mt-2">プロモーションコード: <span className="font-bold text-green-700">{data.productOverviewSection.promoCode}</span></p>
-        </div>
+        {/* LP全体の購入ボタンは削除 */}
       </section>
 
       {/* 体験談 */}
@@ -256,17 +228,7 @@ export default function PeechanzGiftPage() {
             {block.children[0].text}
           </p>
         ))}
-        <div className="text-center mt-8">
-          <a
-            href="https://buy.stripe.com/7sI8yo1Dp4on4us00Q"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-yellow-500 text-white text-xl font-bold py-4 px-8 rounded-full hover:bg-yellow-600 transition-colors duration-300 shadow-lg"
-          >
-            今すぐ購入する
-          </a>
-          <p className="text-sm text-gray-600 mt-2">プロモーションコード: <span className="font-bold text-green-700">{data.productOverviewSection.promoCode}</span></p>
-        </div>
+        {/* LP全体の購入ボタンは削除 */}
       </section>
 
       {/* 飲み方 */}
@@ -277,17 +239,7 @@ export default function PeechanzGiftPage() {
             <li key={index}>{item}</li>
           ))}
         </ul>
-        <div className="text-center mt-8">
-          <a
-            href="https://buy.stripe.com/7sI8yo1Dp4on4us00Q"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-yellow-500 text-white text-xl font-bold py-4 px-8 rounded-full hover:bg-yellow-600 transition-colors duration-300 shadow-lg"
-          >
-            今すぐ購入する
-          </a>
-          <p className="text-sm text-gray-600 mt-2">プロモーションコード: <span className="font-bold text-green-700">{data.productOverviewSection.promoCode}</span></p>
-        </div>
+        {/* LP全体の購入ボタンは削除 */}
       </section>
 
       {/* よくある質問 */}
@@ -354,19 +306,25 @@ export default function PeechanzGiftPage() {
                   <td key={index} className="py-3 px-4 border-b">{course.regularPrice}</td>
                 ))}
               </tr>
+              <tr>
+                <td className="py-3 px-4 border-b font-semibold">購入</td>
+                {data.pricingSection.courses.map((course: any, index: number) => (
+                  <td key={index} className="py-3 px-4 border-b">
+                    <a
+                      href={course.purchaseUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block bg-yellow-500 text-white text-lg font-bold py-2 px-4 rounded-full hover:bg-yellow-600 transition-colors duration-300 shadow-lg"
+                    >
+                      購入する
+                    </a>
+                  </td>
+                ))}
+              </tr>
             </tbody>
           </table>
         </div>
-        <div className="text-center mt-12">
-          <a
-            href="https://buy.stripe.com/7sI8yo1Dp4on4us00Q"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-yellow-500 text-white text-xl font-bold py-4 px-8 rounded-full hover:bg-yellow-600 transition-colors duration-300 shadow-lg"
-          >
-            今すぐ購入する
-          </a>
-        </div>
+        {/* LP全体の購入ボタンは削除 */}
       </section>
 
       {/* お問い合わせ */}
