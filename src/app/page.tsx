@@ -116,7 +116,12 @@ export default function PeechanzGiftPage() {
   }
 
   // お試しコースのURLを取得（存在しない場合に備えてオプショナルチェイニングを使用）
-  const trialCourseUrl = data.pricingSection?.courses?.find((c: any) => c.name.includes('お試し'))?.purchaseUrl;
+  const trialCourse = data.pricingSection?.courses?.find((c: any) => c.name.includes('お試し'));
+  const trialCourseUrl = trialCourse?.purchaseUrl;
+  const promoCode = data.productOverviewSection?.promoCode || "P-EGG"; // Sanityから取得、なければデフォルト値
+
+  // コース選択セクションから「お試しコース」を除外
+  const filteredCourses = data.pricingSection?.courses?.filter((c: any) => !c.name.includes('お試し')) || [];
 
   return (
     <div className="container mx-auto px-4 py-8 space-y-12">
@@ -140,7 +145,7 @@ export default function PeechanzGiftPage() {
             />
           </div>
         )}
-        <PurchaseButton promoCode="P-EGG" purchaseUrl={trialCourseUrl} />
+        <PurchaseButton promoCode={promoCode} purchaseUrl={trialCourseUrl} />
       </section>
 
       {/* 商品概要と初回限定価格 */}
@@ -151,6 +156,7 @@ export default function PeechanzGiftPage() {
         <p className="text-lg text-gray-700">{data.productOverviewSection.quantityInfo}</p>
         <p className="text-2xl font-bold text-red-700 mb-4">{data.productOverviewSection.limitedQuantityText}</p>
         <p className="text-lg text-gray-700 mb-2">{data.productOverviewSection.limitedQuantityReason}</p>
+        <PurchaseButton promoCode={promoCode} purchaseUrl={trialCourseUrl} />
       </section>
 
       {/* 開発秘話 */}
@@ -172,7 +178,7 @@ export default function PeechanzGiftPage() {
             />
           </div>
         )}
-        <PurchaseButton promoCode="P-EGG" purchaseUrl={trialCourseUrl} />
+        <PurchaseButton promoCode={promoCode} purchaseUrl={trialCourseUrl} />
       </section>
 
       {/* 材料へのこだわり */}
@@ -221,7 +227,7 @@ export default function PeechanzGiftPage() {
         <p className="text-sm text-gray-500 mt-2 text-center">
           {data.ingredientsSection.noteText}
         </p>
-        <PurchaseButton promoCode="P-EGG" purchaseUrl={trialCourseUrl} />
+        <PurchaseButton promoCode={promoCode} purchaseUrl={trialCourseUrl} />
       </section>
 
       {/* 体験談 */}
@@ -232,7 +238,7 @@ export default function PeechanzGiftPage() {
             {block.children[0].text}
           </p>
         ))}
-        <PurchaseButton promoCode="P-EGG" purchaseUrl={trialCourseUrl} />
+        <PurchaseButton promoCode={promoCode} purchaseUrl={trialCourseUrl} />
       </section>
 
       {/* 飲み方 */}
@@ -243,7 +249,7 @@ export default function PeechanzGiftPage() {
             <li key={index}>{item}</li>
           ))}
         </ul>
-        <PurchaseButton promoCode="P-EGG" purchaseUrl={trialCourseUrl} />
+        <PurchaseButton promoCode={promoCode} purchaseUrl={trialCourseUrl} />
       </section>
 
       {/* よくある質問 */}
@@ -280,13 +286,13 @@ export default function PeechanzGiftPage() {
             <thead>
               <tr className="bg-green-100 text-green-800">
                 <th className="py-3 px-4 border-b text-left"></th>
-                {data.pricingSection.courses.map((course: any, index: number) => (
+                {filteredCourses.map((course: any, index: number) => (
                   <th key={index} className="py-3 px-4 border-b text-left text-xl font-bold">{course.name}</th>
                 ))}
               </tr>
               <tr className="bg-green-100 text-green-800">
                 <th className="py-3 px-4 border-b text-left"></th>
-                {data.pricingSection.courses.map((course: any, index: number) => (
+                {filteredCourses.map((course: any, index: number) => (
                   <th key={index} className="py-3 px-4 border-b text-left">{course.quantity}</th>
                 ))}
               </tr>
@@ -294,25 +300,25 @@ export default function PeechanzGiftPage() {
             <tbody>
               <tr>
                 <td className="py-3 px-4 border-b font-semibold">飲む量</td>
-                {data.pricingSection.courses.map((course: any, index: number) => (
+                {filteredCourses.map((course: any, index: number) => (
                   <td key={index} className="py-3 px-4 border-b">{course.dailyDose}</td>
                 ))}
               </tr>
               <tr>
                 <td className="py-3 px-4 border-b font-semibold">初月限定価格</td>
-                {data.pricingSection.courses.map((course: any, index: number) => (
+                {filteredCourses.map((course: any, index: number) => (
                   <td key={index} className="py-3 px-4 border-b">{course.trialPrice}</td>
                 ))}
               </tr>
               <tr>
                 <td className="py-3 px-4 border-b font-semibold">通常価格<br/>（2ヶ月目以降）</td>
-                {data.pricingSection.courses.map((course: any, index: number) => (
+                {filteredCourses.map((course: any, index: number) => (
                   <td key={index} className="py-3 px-4 border-b">{course.regularPrice}</td>
                 ))}
               </tr>
               <tr>
                 <td className="py-3 px-4 border-b font-semibold">購入</td>
-                {data.pricingSection.courses.map((course: any, index: number) => (
+                {filteredCourses.map((course: any, index: number) => (
                   <td key={index} className="py-3 px-4 border-b">
                     <a
                       href={course.purchaseUrl}
