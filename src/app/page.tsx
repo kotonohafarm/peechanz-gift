@@ -279,7 +279,7 @@ export default function PeechanzGiftPage() {
             />
           </div>
         )}
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto hidden sm:block">
           <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
             <thead>
               <tr className="bg-green-100 text-green-800">
@@ -331,6 +331,27 @@ export default function PeechanzGiftPage() {
               </tr>
             </tbody>
           </table>
+        </div>
+
+        {/* Mobile view for courses */}
+        <div className="sm:hidden space-y-6">
+          {filteredCourses.map((course: any, index: number) => (
+            <div key={index} className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+              <h3 className="text-2xl font-bold text-green-800 mb-4">{course.name}</h3>
+              <p className="text-lg text-gray-700 mb-2"><span className="font-semibold">数量:</span> {course.quantity}</p>
+              <p className="text-lg text-gray-700 mb-2"><span className="font-semibold">飲む量:</span> {course.dailyDose}</p>
+              <p className="text-lg text-gray-700 mb-2"><span className="font-semibold">初月限定価格:</span> {course.trialPrice}</p>
+              <p className="text-lg text-gray-700 mb-4"><span className="font-semibold">通常価格（2ヶ月目以降）:</span> {course.regularPrice}</p>
+              <a
+                href={course.purchaseUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-yellow-500 text-white text-lg font-bold py-2 px-4 rounded-full hover:bg-yellow-600 transition-colors duration-300 shadow-lg w-full text-center"
+              >
+                購入する
+              </a>
+            </div>
+          ))}
         </div>
       </section>
 
