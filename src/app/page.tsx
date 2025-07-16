@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { client, urlFor } from '../../sanity.config';
 import { groq } from 'next-sanity';
 import { useState, useEffect } from 'react';
+import { PurchaseButton } from '../components/PurchaseButton'; // 購入ボタンコンポーネントをインポート
 
 // Sanityからデータをフェッチするクエリ
 const query = groq`
@@ -70,7 +71,7 @@ const query = groq`
         trialPrice,
         regularPrice,
         benefits,
-        purchaseUrl, // 新しく追加したフィールド
+        purchaseUrl,
       },
     },
     contactSection {
@@ -114,6 +115,9 @@ export default function PeechanzGiftPage() {
     return <div className="text-center py-20 text-lg text-gray-700">コンテンツがありません。Sanity Studioでコンテンツを入力してください。</div>;
   }
 
+  // お試しコースのURLを取得（存在しない場合に備えてオプショナルチェイニングを使用）
+  const trialCourseUrl = data.pricingSection?.courses?.find((c: any) => c.name.includes('お試し'))?.purchaseUrl;
+
   return (
     <div className="container mx-auto px-4 py-8 space-y-12">
       {/* ヒーローセクション */}
@@ -136,6 +140,7 @@ export default function PeechanzGiftPage() {
             />
           </div>
         )}
+        <PurchaseButton promoCode="P-EGG" purchaseUrl={trialCourseUrl} />
       </section>
 
       {/* 商品概要と初回限定価格 */}
@@ -146,7 +151,6 @@ export default function PeechanzGiftPage() {
         <p className="text-lg text-gray-700">{data.productOverviewSection.quantityInfo}</p>
         <p className="text-2xl font-bold text-red-700 mb-4">{data.productOverviewSection.limitedQuantityText}</p>
         <p className="text-lg text-gray-700 mb-2">{data.productOverviewSection.limitedQuantityReason}</p>
-        {/* LP全体の購入ボタンは削除 */}
       </section>
 
       {/* 開発秘話 */}
@@ -168,7 +172,7 @@ export default function PeechanzGiftPage() {
             />
           </div>
         )}
-        {/* LP全体の購入ボタンは削除 */}
+        <PurchaseButton promoCode="P-EGG" purchaseUrl={trialCourseUrl} />
       </section>
 
       {/* 材料へのこだわり */}
@@ -217,7 +221,7 @@ export default function PeechanzGiftPage() {
         <p className="text-sm text-gray-500 mt-2 text-center">
           {data.ingredientsSection.noteText}
         </p>
-        {/* LP全体の購入ボタンは削除 */}
+        <PurchaseButton promoCode="P-EGG" purchaseUrl={trialCourseUrl} />
       </section>
 
       {/* 体験談 */}
@@ -228,7 +232,7 @@ export default function PeechanzGiftPage() {
             {block.children[0].text}
           </p>
         ))}
-        {/* LP全体の購入ボタンは削除 */}
+        <PurchaseButton promoCode="P-EGG" purchaseUrl={trialCourseUrl} />
       </section>
 
       {/* 飲み方 */}
@@ -239,7 +243,7 @@ export default function PeechanzGiftPage() {
             <li key={index}>{item}</li>
           ))}
         </ul>
-        {/* LP全体の購入ボタンは削除 */}
+        <PurchaseButton promoCode="P-EGG" purchaseUrl={trialCourseUrl} />
       </section>
 
       {/* よくある質問 */}
@@ -324,7 +328,6 @@ export default function PeechanzGiftPage() {
             </tbody>
           </table>
         </div>
-        {/* LP全体の購入ボタンは削除 */}
       </section>
 
       {/* お問い合わせ */}
