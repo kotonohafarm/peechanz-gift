@@ -238,7 +238,6 @@ export default function PeechanzGiftPage() {
             {block.children[0].text}
           </p>
         ))}
-        <PurchaseButton promoCode={promoCode} purchaseUrl={trialCourseUrl} />
       </section>
 
       {/* 飲み方 */}
@@ -249,7 +248,6 @@ export default function PeechanzGiftPage() {
             <li key={index}>{item}</li>
           ))}
         </ul>
-        <PurchaseButton promoCode={promoCode} purchaseUrl={trialCourseUrl} />
       </section>
 
       {/* よくある質問 */}
