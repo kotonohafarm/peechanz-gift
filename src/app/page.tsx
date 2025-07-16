@@ -1,92 +1,115 @@
+'use client';
 
 import Image from 'next/image';
 import { client, urlFor } from '../../sanity.config';
 import { groq } from 'next-sanity';
+import { useState, useEffect } from 'react';
 
-// Sanityからデータをフェッチする関数
-async function getPeechanzGiftPageData() {
-  const query = groq`
-    *[_type == "garlicEggYolkPage"][0]{
-      heroSection {
-        mainTitle,
-        subTitle1,
-        subTitle2,
-        description,
-        giftText,
-        mainImage,
+// Sanityからデータをフェッチするクエリ
+const query = groq`
+  *[_type == "garlicEggYolkPage"][0]{
+    heroSection {
+      mainTitle,
+      subTitle1,
+      subTitle2,
+      description,
+      giftText,
+      mainImage,
+    },
+    productOverviewSection {
+      productName,
+      regularPrice,
+      trialPrice,
+      quantityInfo,
+      limitedQuantityText,
+      limitedQuantityReason,
+      promoCode,
+    },
+    storySection {
+      storyTitle,
+      storyContent,
+      storyImage,
+    },
+    ingredientsSection {
+      ingredientsTitle,
+      eggSection {
+        eggDescription,
+        eggImage,
       },
-      productOverviewSection {
-        productName,
-        regularPrice,
+      garlicSection {
+        garlicDescription,
+        garlicImage,
+      },
+      handmadeText,
+      handmadeImages,
+      noteText,
+    },
+    testimonialSection {
+      testimonialTitle,
+      testimonialContent,
+    },
+    howToUseSection {
+      howToUseTitle,
+      howToUseItems,
+    },
+    faqSection {
+      faqTitle,
+      faqs[] {
+        question,
+        answer,
+      },
+    },
+    pricingSection {
+      pricingTitle,
+      packImage,
+      courses[] {
+        name,
+        quantity,
+        dailyDose,
         trialPrice,
-        quantityInfo,
-        limitedQuantityText,
-        limitedQuantityReason,
-        promoCode,
+        regularPrice,
+        benefits,
       },
-      storySection {
-        storyTitle,
-        storyContent,
-        storyImage,
-      },
-      ingredientsSection {
-        ingredientsTitle,
-        eggSection {
-          eggDescription,
-          eggImage,
-        },
-        garlicSection {
-          garlicDescription,
-          garlicImage,
-        },
-        handmadeText,
-        handmadeImages,
-        noteText,
-      },
-      testimonialSection {
-        testimonialTitle,
-        testimonialContent,
-      },
-      howToUseSection {
-        howToUseTitle,
-        howToUseItems,
-      },
-      faqSection {
-        faqTitle,
-        faqs[] {
-          question,
-          answer,
-        },
-      },
-      pricingSection {
-        pricingTitle,
-        packImage,
-        courses[] {
-          name,
-          quantity,
-          dailyDose,
-          trialPrice,
-          regularPrice,
-          benefits,
-        },
-      },
-      contactSection {
-        contactTitle,
-        contactDescription,
-        contactLinkText,
-        contactLinkUrl,
-      },
-    }
-  `;
-  const data = await client.fetch(query);
-  return data;
-}
+    },
+    contactSection {
+      contactTitle,
+      contactDescription,
+      contactLinkText,
+      contactLinkUrl,
+    },
+  }
+`;
 
-export default async function PeechanzGiftPage() {
-  const data = await getPeechanzGiftPageData();
+export default function PeechanzGiftPage() {
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const fetchedData = await client.fetch(query);
+        setData(fetchedData);
+      } catch (err) {
+        console.error("Failed to fetch data from Sanity:", err);
+        setError("コンテンツの読み込みに失敗しました。");
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <div className="text-center py-20 text-lg text-gray-700">コンテンツを読み込み中...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center py-20 text-lg text-red-600">{error}</div>;
+  }
 
   if (!data) {
-    return <div>コンテンツがありません。Sanity Studioでコンテンツを入力してください。</div>;
+    return <div className="text-center py-20 text-lg text-gray-700">コンテンツがありません。Sanity Studioでコンテンツを入力してください。</div>;
   }
 
   return (
