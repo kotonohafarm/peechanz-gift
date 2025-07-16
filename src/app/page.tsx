@@ -239,6 +239,7 @@ export default function PeechanzGiftPage() {
           </p>
         ))}
       </section>
+      </section>
 
       {/* 飲み方 */}
       <section className="bg-green-50 p-8 rounded-lg shadow-md">
