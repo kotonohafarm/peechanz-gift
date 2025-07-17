@@ -2,10 +2,9 @@
 'use client';
 
 import Image from 'next/image';
-import { client, urlFor } from '../../../sanity.config';
+import { client } from '../../../sanity.config';
 import { groq } from 'next-sanity';
 import { useState, useEffect } from 'react';
-import { PurchaseButton } from '../../components/PurchaseButton'; // 購入ボタンコンポーネントをインポート
 
 // Sanityからデータをフェッチするクエリ
 const query = groq`
