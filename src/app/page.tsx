@@ -126,22 +126,24 @@ export default function PeechanzGiftPage() {
   return (
     <div className="container mx-auto px-4 py-8 space-y-12">
       {/* ヒーローセクション */}
-      <section className="relative text-center bg-green-50 p-8 rounded-lg shadow-md">
-        <div className="absolute top-4 left-4 logo-container">
-          <Image
-            src="/images/rogo/kotonohafarm-rogo.png"
-            alt="左上のロゴ"
-            layout="fill"
-            className="logo-image"
-          />
-        </div>
-        <div className="absolute top-4 right-4 logo-container">
-          <Image
-            src="/images/rogo/kodawari-rogo.png"
-            alt="右上のロゴ"
-            layout="fill"
-            className="logo-image"
-          />
+      <section className="text-center bg-green-50 p-8 rounded-lg shadow-md">
+        <div className="flex justify-between items-center mb-4">
+          <div className="logo-container">
+            <Image
+              src="/images/rogo/kotonohafarm-rogo.png"
+              alt="左上のロゴ"
+              layout="fill"
+              className="logo-image"
+            />
+          </div>
+          <div className="logo-container">
+            <Image
+              src="/images/rogo/kodawari-rogo.png"
+              alt="右上のロゴ"
+              layout="fill"
+              className="logo-image"
+            />
+          </div>
         </div>
         <h1 className="text-4xl font-bold text-green-800 mb-4">{data.heroSection.mainTitle}</h1>
         <p className="text-2xl font-semibold text-green-700 mb-6">{data.heroSection.subTitle1}</p>
