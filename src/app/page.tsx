@@ -270,7 +270,7 @@ export default function PeechanzGiftPage() {
                   </div>
                 )}
                 <div className="text-center md:text-left">
-                  <p className="text-lg italic text-gray-700 mb-2">{`"${testimonial.comment}"`}</p>
+                  <p className="text-lg italic text-gray-700 mb-2" dangerouslySetInnerHTML={{ __html: testimonial.comment.replace(/\n/g, '<br />') }}></p>
                   <p className="font-semibold text-green-700">- {testimonial.name}</p>
                 </div>
               </div>
