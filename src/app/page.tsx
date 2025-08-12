@@ -127,7 +127,7 @@ export default function PeechanzGiftPage() {
     <div className="container mx-auto px-4 py-8 space-y-12">
       {/* ヒーローセクション */}
       <section className="relative text-center bg-green-50 px-8 pb-8 pt-20 sm:pt-8 rounded-lg shadow-md">
-        <div className="absolute top-4 left-4 w-20 h-8 sm:w-48 sm:h-18">
+        <div className="absolute top-2 left-2 w-16 h-16 md:w-24 md:h-24 md:top-4 md:left-4">
           <Image
             src="/images/rogo/kotonohafarm-rogo.png"
             alt="左上のロゴ"
@@ -135,7 +135,7 @@ export default function PeechanzGiftPage() {
             className="object-contain"
           />
         </div>
-        <div className="absolute top-4 right-4 w-20 h-8 sm:w-48 sm:h-18">
+        <div className="absolute top-2 right-2 w-16 h-16 md:w-24 md:h-24 md:top-4 md:right-4">
           <Image
             src="/images/rogo/kodawari-rogo.png"
             alt="右上のロゴ"
