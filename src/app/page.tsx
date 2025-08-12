@@ -143,7 +143,7 @@ export default function PeechanzGiftPage() {
             className="object-contain"
           />
         </div>
-        <h1 className="text-4xl font-bold text-green-800 mb-4 px-20">{data.heroSection.mainTitle}</h1>
+        <h1 className="text-2xl sm:text-4xl font-bold text-green-800 mb-4 px-4 sm:px-20">{data.heroSection.mainTitle}</h1>
         <p className="text-2xl font-semibold text-green-700 mb-6">{data.heroSection.subTitle1}</p>
         <p className="text-3xl font-extrabold text-yellow-600 mb-8">{data.heroSection.subTitle2}</p>
         <p className="text-xl text-gray-700">
