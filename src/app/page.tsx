@@ -80,6 +80,11 @@ const query = groq`
       contactLinkText,
       contactLinkUrl,
     },
+    testimonials[] {
+      name,
+      comment,
+      image,
+    },
   }
 `;
 
@@ -244,6 +249,36 @@ export default function PeechanzGiftPage() {
           {data.ingredientsSection.noteText}
         </p>
         <PurchaseButton promoCode={promoCode} purchaseUrl={trialCourseUrl} />
+      </section>
+
+      {/* 愛用者さまの声セクション */}
+      <section className="bg-white p-8 rounded-lg shadow-md">
+        <h2 className="text-3xl font-bold text-green-800 mb-6 text-center">愛用者さまの声</h2>
+        <div className="space-y-8">
+          {/* 各愛用者の声のループ */}
+          {data.testimonials && data.testimonials.length > 0 ? (
+            data.testimonials.map((testimonial: any, index: number) => (
+              <div key={index} className="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-6">
+                {testimonial.image && (
+                  <div className="relative w-24 h-24 rounded-full overflow-hidden flex-shrink-0">
+                    <Image
+                      src={urlFor(testimonial.image).url()}
+                      alt={testimonial.name}
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </div>
+                )}
+                <div className="text-center md:text-left">
+                  <p className="text-lg italic text-gray-700 mb-2">"{testimonial.comment}"</p>
+                  <p className="font-semibold text-green-700">- {testimonial.name}</p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-center text-gray-600">現在、愛用者さまの声は準備中です。</p>
+          )}
+        </div>
       </section>
 
       {/* 体験談 */}
