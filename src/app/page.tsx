@@ -126,7 +126,7 @@ export default function PeechanzGiftPage() {
   return (
     <div className="container mx-auto px-4 py-8 space-y-12">
       {/* ヒーローセクション */}
-      <section className="relative text-center bg-green-50 p-8 rounded-lg shadow-md">
+      <section className="relative text-center bg-green-50 px-8 pb-8 pt-16 sm:pt-8 rounded-lg shadow-md">
         <div className="absolute top-4 left-4 w-24 h-9 sm:w-48 sm:h-18">
           <Image
             src="/images/rogo/kotonohafarm-rogo.png"
